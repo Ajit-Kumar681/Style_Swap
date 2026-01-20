@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -8,99 +9,161 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     if (email && password) {
       alert("Login Successful");
       localStorage.setItem("isLogin", true);
     } else {
-      alert("Please fill all fields");
+      alert("Fill all fields");
     }
   };
 
   return (
     <>
       <style>{`
-        body {
-          background: #f4f6f8;
-        }
+        body { background:#f4f6f8; }
+
         .auth-container {
-          height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
         }
+
         .auth-box {
-          width: 360px;
-          background: #fff;
-          padding: 30px;
-          border-radius: 12px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+          width:380px;
+          background:#fff;
+          padding:30px;
+          border-radius:16px;
+          box-shadow:0 15px 35px rgba(0,0,0,0.1);
         }
-        .auth-box h2 {
-          text-align: center;
-          margin-bottom: 20px;
-          color: #333;
+
+        /* LOGO */
+        .logo-box {
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          gap:12px;
+          margin-bottom:25px;
         }
-        .auth-box input {
-          width: 100%;
-          padding: 12px;
-          margin: 10px 0;
-          border-radius: 8px;
-          border: 1px solid #ccc;
+
+        .logo-circle {
+          width:56px;
+          height:56px;
+          background:linear-gradient(135deg,#2563eb,#1e40af);
+          color:#fff;
+          border-radius:50%;
+          font-size:20px;
+          font-weight:800;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          box-shadow:0 8px 20px rgba(37,99,235,0.4);
         }
-        .auth-box button {
-          width: 100%;
-          padding: 12px;
-          margin-top: 10px;
-          background: #2563eb;
-          color: white;
-          border: none;
-          border-radius: 8px;
-          font-size: 16px;
-          cursor: pointer;
+
+        .logo-text h1 {
+          font-size:22px;
+          font-weight:800;
+          color:#1e293b;
+          line-height:1;
         }
-        .auth-box button:hover {
-          background: #1e40af;
+
+        .logo-text p {
+          font-size:12px;
+          color:#64748b;
+          margin-top:4px;
         }
+
+        h2 {
+          text-align:center;
+          margin-bottom:15px;
+        }
+
+        input {
+          width:100%;
+          padding:12px;
+          margin:10px 0;
+          border-radius:8px;
+          border:1px solid #cbd5e1;
+        }
+
+        button {
+          width:100%;
+          padding:12px;
+          background:#2563eb;
+          color:#fff;
+          border:none;
+          border-radius:8px;
+          font-size:16px;
+          cursor:pointer;
+          margin-top:10px;
+        }
+
+        button:hover {
+          background:#1e40af;
+        }
+
+        .divider {
+          text-align:center;
+          margin:18px 0;
+          color:#94a3b8;
+          font-size:14px;
+        }
+
         .switch-text {
-          text-align: center;
-          margin-top: 15px;
-          font-size: 14px;
+          text-align:center;
+          margin-top:15px;
+          font-size:14px;
         }
+
         .switch-text span {
-          color: #2563eb;
-          cursor: pointer;
-          font-weight: 600;
+          color:#2563eb;
+          cursor:pointer;
+          font-weight:600;
         }
       `}</style>
 
       <div className="auth-container">
-        <form className="auth-box" onSubmit={handleLogin}>
+        <div className="auth-box">
+          <div className="logo-box">
+            <div className="logo-circle">SS</div>
+            <div className="logo-text">
+              <h1>StyleSwap</h1>
+              <p>Smart Clothing Rentals</p>
+            </div>
+          </div>
+
           <h2>Login</h2>
 
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <button type="submit">Login</button>
+            <button type="submit">Login</button>
+          </form>
+
+          <div className="divider">OR</div>
+
+          <GoogleLogin
+            onSuccess={() => alert("Google Login Success")}
+            onError={() => alert("Google Login Failed")}
+          />
 
           <p className="switch-text">
             Don’t have an account?{" "}
             <span onClick={() => navigate("/signup")}>Sign Up</span>
           </p>
-        </form>
+        </div>
       </div>
     </>
   );
