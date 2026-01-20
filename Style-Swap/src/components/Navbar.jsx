@@ -40,8 +40,8 @@ const Navbar = () => {
           </div>
 
           <div className="auth-buttons">
-            <button className="login-btn" onClick={()=>navigate("/login")}>Login</button>
-            <button className="signup-btn" onClick={()=>navigate("/signup")}>Sign Up</button>
+            {/* <button className="login-btn" onClick={()=>navigate("/login")}>Login</button> */}
+            {/* <button className="signup-btn" onClick={()=>navigate("/signup")}>Sign Up</button> */}
           </div>
         </div>
       </nav>
