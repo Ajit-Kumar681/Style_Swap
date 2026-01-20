@@ -37,7 +37,6 @@ const Navbar = () => {
             <span onClick={()=>navigate("/ethnic")}>ETHNIC</span>
             <span onClick={()=>navigate("/accessories")}>ACCESSORIES</span>
             <span onClick={()=>navigate("/mens")}>MEN&apos;S COLLECTION</span>
-            <span onClick={()=>navigate("/wishlist")}>WISHLIST</span>
           </div>
 
           <div className="auth-buttons">
