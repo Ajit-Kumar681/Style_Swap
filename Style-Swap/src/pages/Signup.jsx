@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+import bgImage from "../assets/images/clo2.jpg";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -21,109 +22,123 @@ const Signup = () => {
   return (
     <>
       <style>{`
-        body { background:#f4f6f8; }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Segoe UI", sans-serif;
+        }
 
-        .auth-container {
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
+        .auth-page {
+          min-height: 100vh;
+          background:
+            linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+            url(${bgImage}) center/cover no-repeat;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .auth-box {
-          width:380px;
-          background:#fff;
-          padding:30px;
-          border-radius:16px;
-          box-shadow:0 15px 35px rgba(0,0,0,0.1);
+          width: 380px;
+          background: rgba(255,255,255,0.95);
+          padding: 30px;
+          border-radius: 18px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
+        /* LOGO */
         .logo-box {
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          gap:12px;
-          margin-bottom:25px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          margin-bottom: 25px;
         }
 
         .logo-circle {
-          width:56px;
-          height:56px;
-          background:linear-gradient(135deg,#16a34a,#15803d);
-          color:#fff;
-          border-radius:50%;
-          font-size:20px;
-          font-weight:800;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          box-shadow:0 8px 20px rgba(22,163,74,0.4);
+          width: 56px;
+          height: 56px;
+          background: linear-gradient(135deg,#16a34a,#15803d);
+          color: white;
+          border-radius: 50%;
+          font-size: 20px;
+          font-weight: 800;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 20px rgba(22,163,74,0.4);
         }
 
         .logo-text h1 {
-          font-size:22px;
-          font-weight:800;
-          color:#1e293b;
-          line-height:1;
+          font-size: 22px;
+          font-weight: 800;
+          color: #1e293b;
+          line-height: 1;
         }
 
         .logo-text p {
-          font-size:12px;
-          color:#64748b;
-          margin-top:4px;
+          font-size: 12px;
+          color: #64748b;
+          margin-top: 4px;
         }
 
         h2 {
-          text-align:center;
-          margin-bottom:15px;
+          text-align: center;
+          margin-bottom: 15px;
+          color: #1e293b;
         }
 
         input {
-          width:100%;
-          padding:12px;
-          margin:10px 0;
-          border-radius:8px;
-          border:1px solid #cbd5e1;
+          width: 100%;
+          padding: 12px;
+          margin: 10px 0;
+          border-radius: 8px;
+          border: 1px solid #cbd5e1;
+          font-size: 14px;
         }
 
         button {
-          width:100%;
-          padding:12px;
-          background:#16a34a;
-          color:#fff;
-          border:none;
-          border-radius:8px;
-          font-size:16px;
-          cursor:pointer;
-          margin-top:10px;
+          width: 100%;
+          padding: 12px;
+          background: #16a34a;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 16px;
+          cursor: pointer;
+          margin-top: 10px;
+          font-weight: 600;
         }
 
         button:hover {
-          background:#15803d;
+          background: #15803d;
         }
 
         .divider {
-          text-align:center;
-          margin:18px 0;
-          color:#94a3b8;
-          font-size:14px;
+          text-align: center;
+          margin: 18px 0;
+          color: #94a3b8;
+          font-size: 14px;
         }
 
         .switch-text {
-          text-align:center;
-          margin-top:15px;
-          font-size:14px;
+          text-align: center;
+          margin-top: 15px;
+          font-size: 14px;
+          color: #475569;
         }
 
         .switch-text span {
-          color:#2563eb;
-          cursor:pointer;
-          font-weight:600;
+          color: #2563eb;
+          cursor: pointer;
+          font-weight: 600;
         }
       `}</style>
 
-      <div className="auth-container">
+      <div className="auth-page">
         <div className="auth-box">
+          {/* LOGO */}
           <div className="logo-box">
             <div className="logo-circle">SS</div>
             <div className="logo-text">
