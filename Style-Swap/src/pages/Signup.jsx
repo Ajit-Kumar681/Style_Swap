@@ -67,7 +67,7 @@ const Signup = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 8px 20px rgba(22,163,74,0.4);
+          box-shadow: 0 8px 20px rgba(14, 26, 187, 0.4);
         }
 
         .logo-text h1 {

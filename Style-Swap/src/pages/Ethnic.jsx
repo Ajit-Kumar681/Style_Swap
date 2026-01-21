@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -7,15 +6,14 @@ import e2 from "../assets/images/img8.jpg";
 import e3 from "../assets/images/img9.jpg";
 import e4 from "../assets/images/img10.jpg";
 
-const Ethnic = () => {
-  const [liked, setLiked] = useState([false, false, false, false]);
+const data = [
+  { id: "e1", title: "Ethnic Saree", image: e1, category: "Ethnic" },
+  { id: "e2", title: "Traditional Lehenga", image: e2, category: "Ethnic" },
+  { id: "e3", title: "Kurti Set", image: e3, category: "Ethnic" },
+  { id: "e4", title: "Wedding Wear", image: e4, category: "Ethnic" },
+];
 
-  const toggleLike = (index) => {
-    const updated = [...liked];
-    updated[index] = !updated[index];
-    setLiked(updated);
-  };
-
+const Ethnic = ({ wishlist, toggleWishlist, cart, toggleCart }) => {
   return (
     <>
       <Navbar />
@@ -23,58 +21,25 @@ const Ethnic = () => {
       <style>{`
         *{box-sizing:border-box;font-family:Segoe UI,sans-serif}
 
-        .page{
-          padding:120px 30px 60px;
-          background:#f8fafc;
-          min-height:100vh;
-        }
+        .page{padding:120px 30px 60px;background:#f8fafc;min-height:100vh;}
+        .title{text-align:center;font-size:36px;margin-bottom:45px;font-weight:600;color:#0f172a;}
 
-        .title{
-          text-align:center;
-          font-size:36px;
-          margin-bottom:45px;
-          font-weight:600;
-          color:#0f172a;
-        }
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;max-width:1300px;margin:auto;}
+        .card{position:relative;height:380px;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.15);transition:.3s;}
+        .card:hover{transform:translateY(-8px);}
 
-        .card-grid{
-          display:grid;
-          grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-          gap:30px;
-          max-width:1300px;
-          margin:auto;
-        }
+        .card img{width:100%;height:100%;object-fit:cover;}
 
-        .card{
-          position:relative;
-          height:380px;
-          border-radius:18px;
-          overflow:hidden;
-          background:#fff;
-          box-shadow:0 12px 30px rgba(0,0,0,.15);
-          transition:.3s;
-        }
-
-        .card:hover{transform:translateY(-8px)}
-
-        .img-box{
-          width:100%;
-          height:100%;
-          overflow:hidden;
-        }
-
-        .img-box img{
-          width:100%;
-          height:100%;
-          object-fit:cover;
-          object-position:center top;
-          display:block;
-        }
-
-        .wishlist{
+        .icons{
           position:absolute;
           top:14px;
           right:14px;
+          display:flex;
+          gap:10px;
+          z-index:2;
+        }
+
+        .icon{
           width:38px;
           height:38px;
           background:#fff;
@@ -82,16 +47,14 @@ const Ethnic = () => {
           display:flex;
           align-items:center;
           justify-content:center;
-          font-size:20px;
+          font-size:18px;
           cursor:pointer;
-          z-index:2;
           transition:.3s;
+          box-shadow:0 4px 12px rgba(0,0,0,.2);
         }
 
-        .wishlist.active{
-          background:#fee2e2;
-          transform:scale(1.1);
-        }
+        .icon.active{background:#fee2e2;transform:scale(1.1);}
+        .cart.active{background:#dcfce7;}
 
         .overlay{
           position:absolute;
@@ -104,7 +67,7 @@ const Ethnic = () => {
           transition:.3s;
         }
 
-        .card:hover .overlay{opacity:1}
+        .card:hover .overlay{opacity:1;}
 
         .view-btn{
           padding:12px 28px;
@@ -116,34 +79,58 @@ const Ethnic = () => {
           cursor:pointer;
         }
 
-        @media(max-width:768px){
-          .card{height:320px}
-          .title{font-size:28px}
+        .info{
+          position:absolute;
+          bottom:14px;
+          left:14px;
+          color:#0f172a;
+          font-weight:600;
+          font-size:16px;
+          background:rgba(255,255,255,.9);
+          padding:4px 8px;
+          border-radius:6px;
         }
       `}</style>
 
       <div className="page">
         <h1 className="title">Ethnic Collection</h1>
 
-        <div className="card-grid">
-          {[e1,e2,e3,e4].map((img,i)=>(
-            <div className="card" key={i}>
-              <div className="img-box">
-                <img src={img} />
-              </div>
+        <div className="grid">
+          {data.map((item) => {
+            const inWishlist = wishlist.find((i) => i.id === item.id);
+            const inCart = cart.find((i) => i.id === item.id);
 
-              <div
-                className={`wishlist ${liked[i] ? "active" : ""}`}
-                onClick={()=>toggleLike(i)}
-              >
-                {liked[i] ? "❤️" : "🤍"}
-              </div>
+            return (
+              <div className="card" key={item.id}>
+                <img src={item.image} alt={item.title} />
 
-              <div className="overlay">
-                <button className="view-btn">View</button>
+                {/* Wishlist + Cart (same as Western) */}
+                <div className="icons">
+                  <div
+                    className={`icon ${inWishlist ? "active" : ""}`}
+                    onClick={() => toggleWishlist(item)}
+                    title="Wishlist"
+                  >
+                    {inWishlist ? "❤️" : "🤍"}
+                  </div>
+
+                  <div
+                    className={`icon cart ${inCart ? "active" : ""}`}
+                    onClick={() => toggleCart(item)}
+                    title="Cart"
+                  >
+                    {inCart ? "🛒" : "➕"}
+                  </div>
+                </div>
+
+                <div className="overlay">
+                  <button className="view-btn">View</button>
+                </div>
+
+                <div className="info">{item.title}</div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

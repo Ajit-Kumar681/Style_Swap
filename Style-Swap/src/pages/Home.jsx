@@ -209,8 +209,8 @@ const Home = () => {
         <div>
           <h1>Rent. Swap. Repeat.</h1>
           <p>Discover and rent stylish outfits for every occasion. Affordable, sustainable, and trendy fashion.</p>
-          <button className="btn-primary">Browse Collection</button>
-          <button className="btn-secondary">How It Works</button>
+          <button className="btn-primary">Collection</button>
+          <button className="btn-secondary">View More</button>
         </div>
       </section>
 

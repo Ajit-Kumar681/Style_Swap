@@ -108,8 +108,14 @@ const Footer = () => {
           <div className="footer-brand">
             <h2>StyleSwap</h2>
             <p>
-              Premium clothing rental platform offering designer outfits
-              for every occasion. Rent smart. Dress better. Stay sustainable.
+             Your go-to premium clothing rental platform. Designer outfits for
+              every occasion. Rent with ease, look your best, and stay eco-friendly.
+              "Or another catchy option:
+              Luxury made accessible. Rent designer clothes for any occasion. Dress smart, 
+              impress effortlessly, and embrace sustainability.
+              
+
+              
             </p>
           </div>
 

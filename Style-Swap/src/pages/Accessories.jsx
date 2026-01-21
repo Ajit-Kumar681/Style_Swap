@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -7,37 +6,25 @@ import a2 from "../assets/images/img2.jpg";
 import a3 from "../assets/images/img3.jpg";
 import a4 from "../assets/images/img4.jpg";
 
-const Accessories = () => {
-  const [liked, setLiked] = useState([false,false,false,false]);
+const data = [
+  { id: "a1", title: "Handbag", image: a1, category: "Accessories" },
+  { id: "a2", title: "Sunglasses", image: a2, category: "Accessories" },
+  { id: "a3", title: "Jewellery", image: a3, category: "Accessories" },
+  { id: "a4", title: "Footwear", image: a4, category: "Accessories" },
+];
 
-  const toggleLike=(index)=>{
-    const updated=[...liked];
-    updated[index]=!updated[index];
-    setLiked(updated);
-  }
-
-  return(
+const Accessories = ({ wishlist, toggleWishlist, cart, toggleCart }) => {
+  return (
     <>
       <Navbar />
 
       <style>{`
         *{box-sizing:border-box;font-family:Segoe UI,sans-serif}
 
-        .page{
-          padding:120px 30px 60px;
-          background:#f8fafc;
-          min-height:100vh;
-        }
+        .page{padding:120px 30px 60px;background:#f8fafc;min-height:100vh;}
+        .title{text-align:center;font-size:36px;margin-bottom:45px;font-weight:600;color:#0f172a;}
 
-        .title{
-          text-align:center;
-          font-size:36px;
-          margin-bottom:45px;
-          font-weight:600;
-          color:#0f172a;
-        }
-
-        .card-grid{
+        .grid{
           display:grid;
           grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
           gap:30px;
@@ -55,26 +42,24 @@ const Accessories = () => {
           transition:.3s;
         }
 
-        .card:hover{transform:translateY(-8px)}
+        .card:hover{transform:translateY(-8px);}
 
-        .img-box{
-          width:100%;
-          height:100%;
-          overflow:hidden;
-        }
-
-        .img-box img{
+        .card img{
           width:100%;
           height:100%;
           object-fit:cover;
-          object-position:center top;
-          display:block;
         }
 
-        .wishlist{
+        .icons{
           position:absolute;
           top:14px;
           right:14px;
+          display:flex;
+          gap:10px;
+          z-index:2;
+        }
+
+        .icon{
           width:38px;
           height:38px;
           background:#fff;
@@ -82,15 +67,19 @@ const Accessories = () => {
           display:flex;
           align-items:center;
           justify-content:center;
-          font-size:20px;
+          font-size:18px;
           cursor:pointer;
-          z-index:2;
           transition:.3s;
+          box-shadow:0 4px 12px rgba(0,0,0,.2);
         }
 
-        .wishlist.active{
+        .icon.active{
           background:#fee2e2;
           transform:scale(1.1);
+        }
+
+        .cart.active{
+          background:#dcfce7;
         }
 
         .overlay{
@@ -104,7 +93,7 @@ const Accessories = () => {
           transition:.3s;
         }
 
-        .card:hover .overlay{opacity:1}
+        .card:hover .overlay{opacity:1;}
 
         .view-btn{
           padding:12px 28px;
@@ -116,35 +105,59 @@ const Accessories = () => {
           cursor:pointer;
         }
 
-        @media(max-width:768px){
-          .card{height:320px}
-          .title{font-size:28px}
+        .info{
+          position:absolute;
+          bottom:14px;
+          left:14px;
+          color:#0f172a;
+          font-weight:600;
+          font-size:16px;
+          background:rgba(255,255,255,.9);
+          padding:4px 8px;
+          border-radius:6px;
         }
       `}</style>
 
       <div className="page">
         <h1 className="title">Accessories</h1>
 
-        <div className="card-grid">
-          {[a1,a2,a3,a4].map((img,i)=>(
-            <div className="card" key={i}>
-              <div className="img-box">
-                <img src={img}/>
-              </div>
+        <div className="grid">
+          {data.map((item) => {
+            const inWishlist = wishlist.find((i) => i.id === item.id);
+            const inCart = cart.find((i) => i.id === item.id);
 
-              <div className={`wishlist ${liked[i]?'active':''}`} onClick={()=>toggleLike(i)}>
-                {liked[i]?'❤️':'🤍'}
-              </div>
+            return (
+              <div className="card" key={item.id}>
+                <img src={item.image} alt={item.title} />
 
-              <div className="overlay">
-                <button className="view-btn">View</button>
+                <div className="icons">
+                  <div
+                    className={`icon ${inWishlist ? "active" : ""}`}
+                    onClick={() => toggleWishlist(item)}
+                  >
+                    {inWishlist ? "❤️" : "🤍"}
+                  </div>
+
+                  <div
+                    className={`icon cart ${inCart ? "active" : ""}`}
+                    onClick={() => toggleCart(item)}
+                  >
+                    {inCart ? "🛒" : "➕"}
+                  </div>
+                </div>
+
+                <div className="overlay">
+                  <button className="view-btn">View</button>
+                </div>
+
+                <div className="info">{item.title}</div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };
